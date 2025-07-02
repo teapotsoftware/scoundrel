@@ -207,8 +207,9 @@ function playSound(name) {
 }
 
 function fillRoom() {
-	for (let i = 0; i < 4; i++) {
-		if (room[i] == -1 && deck.length > 0) {
+	let n = deck.length;
+	for (let i = 0; i < n; i++) {
+		if (room[i] == -1) {
 			room[i] = deck.pop();
 		}
 	}
@@ -226,7 +227,7 @@ function runFromRoom() {
 	}
 	shuffle(returns);
 	for (let i = 0; i < returns.length; i++) {
-		deck.unshift(returns.pop());
+		deck.unshift(returns[i]);
 	}
 	fillRoom();
 	ranLast = true;
@@ -459,6 +460,7 @@ function init() {
 				musicVolume = Math.min(8, musicVolume + 1);
 				sounds.icebreaker.volume = calcVolume(musicVolume);
 				if (musicVolume == 1) {
+					sounds.icebreaker.loop = true;
 					sounds.icebreaker.currentTime = 0;
 					sounds.icebreaker.play();
 				}
