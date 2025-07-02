@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Silk Scoundrel</title>
+	<script src="scoundrel.js" type="text/javascript"></script>
+</head>
+<body onload="init()">
+	<style>
+		body {
+			background-color: Black;
+		}
+		.cursoroverride {
+			cursor: url("32x32/cursor.png"), auto;
+		}
+		canvas {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			border: 20px solid DarkOliveGreen;
+		}
+		@font-face {
+			font-family: "MedievalSharp";
+			src: url("MedievalSharp-Regular.ttf") format("truetype");
+		}
+	</style>
+	<div class="cursoroverride">
+	<canvas id="gameCanvas" width="640" height="480">There was a problem loading Silk Dungeon ;_;</canvas>
+	</div>
+</body>
+</html>
