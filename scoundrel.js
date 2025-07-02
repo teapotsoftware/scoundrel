@@ -504,8 +504,6 @@ function init() {
 	loadSprite("run");
 	loadSprite("dead");
 	loadSprite("cog");
-	loadSprite("sound");
-	loadSprite("music");
 	loadSprite("x");
 	loadSprite("box0");
 	loadSprite("box1");
