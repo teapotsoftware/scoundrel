@@ -177,8 +177,9 @@ function sprite(name, x, y, scale = 2) {
 		console.error("can't find sprite " + name);
 		return;
 	}
-	let hsize = scale * 16;
-	ctx.drawImage(img, x - hsize, y - hsize, hsize * 2, hsize * 2);
+	let hw = img.width * 0.5 * scale;
+	let hh = img.height * 0.5 * scale;
+	ctx.drawImage(img, x - hw, y - hh, hw * 2, hh * 2);
 }
 
 let sounds = {};
@@ -207,13 +208,14 @@ function playSound(name) {
 }
 
 function fillRoom() {
-	let n = deck.length;
-	for (let i = 0; i < n; i++) {
-		if (room[i] == -1) {
+	for (let i = 0; i < 4; i++) {
+		if (room[i] == -1 && deck.length > 0) {
 			room[i] = deck.pop();
 		}
 	}
-	ranLast = false;
+	if (deck.length > 0) {
+		ranLast = false;
+	}
 }
 
 function runFromRoom() {
@@ -302,7 +304,7 @@ function draw() {
 					|| isMouseNear(ScrW * 0.82, ScrH * 0.6, 24);
 		if (hovering) {
 			cvs.style.cursor = "none";
-			sprite("point", mouseX, mouseY, 1);
+			sprite("point", mouseX, mouseY, 2);
 		}
 		return;
 	} else {
@@ -388,7 +390,7 @@ function draw() {
 			ctx.textAlign = "left";
 			ctx.fillText("Retreat", ScrW * 0.16, ScrH * 0.7);
 		}
-		sprite("point", mouseX, mouseY, (hoveredOther == 1) ? 2 : 1);
+		sprite("point", mouseX, mouseY, 2);
 		showCursor = false;
 	}
 
@@ -420,9 +422,10 @@ function isMouseNear(x, y, dist = 40) {
 function init() {
 	cvs = document.getElementById("gameCanvas");
 	cvs.addEventListener("mousemove", event => {
+		// bounding rect includes 20px border yippeeeeeeeee
 		const rect = cvs.getBoundingClientRect();
-		mouseX = event.clientX - rect.left;
-		mouseY = event.clientY - rect.top;
+		mouseX = event.clientX - (rect.left + 20);
+		mouseY = event.clientY - (rect.top + 20);
 
 		// Any cards hovered?
 		hoveredCard = -1;
